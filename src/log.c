@@ -1,5 +1,23 @@
 #include "log.h"
 
+/*
+ * This log implementation writes log messages to log
+ * file. This implementation is not thread safe. 
+ *
+ * Different log level defined using an integer.
+ *
+ * Debug       : 1
+ * Info        : 2
+ * Warning     : 3
+ * Error       : 4 
+ * Critical    : 5
+ *
+ *
+ * Off         : 0
+ *
+ */
+
+
 // global variables defined for log
 double __log_stime__;
 FILE *__log_file__;       
@@ -21,9 +39,9 @@ void log_init (const char *filename, const char *errorfile, int loglevel)
 	if (!(loglevel < 0))
 		__log_level__ = loglevel;
 
-#ifdef __LOG_ENABLE__
+/* #ifdef __LOG_ENABLE__ */
 
-	__log_file__ = fopen (filename, "a+");
+	__log_file__ = fopen (filename, "w");
 	if (!__log_file__)
 	{
 		fprintf (stderr, "Unable to open __log_file__ for writing\n");
@@ -34,21 +52,20 @@ void log_init (const char *filename, const char *errorfile, int loglevel)
 		errorfile = filename;
 	}
 
-	__error_file__ = fopen (errorfile, "a+");
+	__error_file__ = fopen (errorfile, "w");
 	if (!__error_file__)
 	{
 		fprintf (stderr, "Unable to open __error_file__ for writing\n");
 	}
 
-#endif /* __LOG_ENABLE__ */
+/* #endif */ /* __LOG_ENABLE__ */
 }
 
 
 void log_close ()
 {
-#ifdef __LOG_ENABLE__
-	GEN("############################################################\n");
+/* #ifdef __LOG_ENABLE__ */
 	fclose (__log_file__);
 	fclose (__error_file__);
-#endif /* __LOG_ENABLE__ */
+/* #endif */ /* __LOG_ENABLE__ */
 }
