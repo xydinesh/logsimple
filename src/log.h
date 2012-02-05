@@ -3,8 +3,12 @@
 
 #include <sys/time.h>
 #include <stdio.h>
-#include <ctime>
-#include <cstdio>
+#include <time.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
+
 /*
  * This log implementation writes log messages to log
  * file. This implementation is not thread safe. 
@@ -42,14 +46,6 @@ extern struct timezone tzval;
 #endif  /* __PARALLEL__ */
 
 #ifdef __LOG_ENABLE__
-#define DEBUG(format, ...) if(__log_level__ < 2){fprintf(__log_file__, "[%lf]  [debug] "format, (LOGTIME), ## __VA_ARGS__);fflush(__log_file__);}
-#define INFO(format, ...)  if(__log_level__ < 3){fprintf(__log_file__, "[%lf]  [info]  "format, (LOGTIME), ## __VA_ARGS__);fflush(__log_file__);}
-#define WARN(format, ...)  if(__log_level__ < 4){fprintf(__error_file__, "[%lf]  [warn]  "format, (LOGTIME), ## __VA_ARGS__);fflush(__error_file__);}
-#define ERROR(format, ...) if(__log_level__ < 5){fprintf(__error_file__, "[%lf]  [error] "format, (LOGTIME), ## __VA_ARGS__);fflush(__error_file__);}
-#define CRIT(format, ...)  if(__log_level__ < 6){fprintf(__log_file__, "[%lf]  [crit]  "format, (LOGTIME), ## __VA_ARGS__);fflush(__log_file__);}
-/* print to logfile without any tags */
-#define GEN(format, ...) fprintf(__log_file__, format, ## __VA_ARGS__);fflush(__log_file__);
-#else  /* _MSC_VER */
 #define DEBUG(format, ...) ({if(__log_level__ < 2){fprintf(__log_file__, "[%lf]  [debug] "format, (LOGTIME), ## __VA_ARGS__);fflush(__log_file__);}})
 #define INFO(format, ...)  ({if(__log_level__ < 3){fprintf(__log_file__, "[%lf]  [info]  "format, (LOGTIME), ## __VA_ARGS__);fflush(__log_file__);}})
 #define WARN(format, ...)  ({if(__log_level__ < 4){fprintf(__error_file__, "[%lf]  [warn]  "format, (LOGTIME), ## __VA_ARGS__);fflush(__error_file__);}})
@@ -57,7 +53,6 @@ extern struct timezone tzval;
 #define CRIT(format, ...)  ({if(__log_level__ < 6){fprintf(__log_file__, "[%lf]  [crit]  "format, (LOGTIME), ## __VA_ARGS__);fflush(__log_file__);}})
 /* print to logfile without any tags */
 #define GEN(format, ...) ({fprintf(__log_file__, format, ## __VA_ARGS__);fflush(__log_file__);})
-#endif  /* __LOG_ENABLE__ */
 #else
 #define DEBUG(format, ...)
 #define INFO(format, ...) 

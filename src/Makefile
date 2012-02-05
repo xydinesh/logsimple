@@ -1,7 +1,7 @@
-CC=g++
+CC=gcc
 CFLAGS= -O3
 # include directories
-INCLUDES = -I.
+INCLUDES =
 
 .SUFFIXES: .cpp
 
@@ -12,7 +12,7 @@ INCLUDES = -I.
 	$(CC) $(CFLAGS) $< -o $@ 
 
 # source
-SRC = Log.cpp 
+SRC = log.c
 # source files.
 OUT=liblogsimple.a
 OBJ = $(addsuffix .o, $(basename $(SRC)))

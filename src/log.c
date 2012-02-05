@@ -1,8 +1,4 @@
-#include <cstring>
-#include <cstdio>
-#include <cstdlib>
-#include <ctime>
-#include <Log.h>
+#include "log.h"
 
 // global variables defined for log
 double __log_stime__;
